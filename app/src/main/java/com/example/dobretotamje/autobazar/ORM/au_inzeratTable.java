@@ -3,109 +3,80 @@ package com.example.dobretotamje.autobazar.ORM;
 import com.example.dobretotamje.autobazar.Database;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class au_inzeratTable {
 
-    public static String SQL_SELECT_ID = "SELECT in_id, au_id, u_id, popis, cena, misto, rok_vyroby, rozvody, stav_kilometru, vzorek_pneu, bourane, vybava, vymena_spojky, majitel FROM au_inzerat WHERE in_ID = ?";
-    public static String SQL_INSERT = "INSERT INTO au_inzerat (au_id, u_id, popis, cena, misto, rok_vyroby, rozvody, stav_kilometru, vzorek_pneu, bourane, vybava, vymena_spojky, majitel) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    public static String SQL_DELETE_ID = "DELETE FROM au_inzerat WHERE in_ID=?";
-    public static String SQL_SELECT_AU_ID = "SELECT in_id, au_id, u_id, popis, cena, misto, rok_vyroby, rozvody, stav_kilometru, vzorek_pneu, bourane, vybava, vymena_spojky, majitel FROM au_inzerat WHERE au_ID = ?";
-    public static String SQL_SELECT = "SELECT in_id, au_id, u_id, popis, cena, misto, rok_vyroby, rozvody, stav_kilometru, vzorek_pneu, bourane, vybava, vymena_spojky, majitel FROM au_inzerat";
+    private static String SQL_SELECT_ID = "SELECT in_id, au_id, u_id, popis, cena, misto, rok_vyroby, rozvody, stav_kilometru, vzorek_pneu, bourane, vybava, vymena_spojky, majitel FROM au_inzerat WHERE in_ID = ?";
+    private static String SQL_INSERT = "INSERT INTO au_inzerat (au_id, u_id, popis, cena, misto, rok_vyroby, rozvody, stav_kilometru, vzorek_pneu, bourane, vybava, vymena_spojky, majitel) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static String SQL_DELETE_ID = "DELETE FROM au_inzerat WHERE in_ID=?";
+    private static String SQL_SELECT_AU_ID = "SELECT in_id, au_id, u_id, popis, cena, misto, rok_vyroby, rozvody, stav_kilometru, vzorek_pneu, bourane, vybava, vymena_spojky, majitel FROM au_inzerat WHERE au_ID = ?";
+    private static String SQL_SELECT = "SELECT in_id, au_id, u_id, popis, cena, misto, rok_vyroby, rozvody, stav_kilometru, vzorek_pneu, bourane, vybava, vymena_spojky, majitel FROM au_inzerat";
+    private static Logger LOGGER = Logger.getLogger(ResultSetRow.class.getName());
 
-    public static List<au_inzerat> Select_Au_Id(int in_ID) {
+    public static LinkedList<au_inzerat> Select() {
+        Database db = new Database();
+        PreparedStatement preparedStatement = db.CreateCommand(SQL_SELECT);
+
+        List<ResultSetRow> tableWithValues = db.Select(preparedStatement);
+        return proccessResultSet(tableWithValues);
+    }
+
+    public static LinkedList<au_inzerat> Select_Au_Id(int au_ID) {
         try {
             Database db = new Database();
-            PreparedStatement command = db.CreateCommand(SQL_SELECT_AU_ID);
-            command.setInt(1, in_ID);
+            PreparedStatement preparedStatement = db.CreateCommand(SQL_SELECT_AU_ID);
+            preparedStatement.setInt(1, au_ID);
 
-            ResultSet resultSet = db.Select(command);
-            List<au_inzerat> au_inzeratList = proccessResultSet(resultSet);
-            db.Close();
-
-            return au_inzeratList;
+            List<ResultSetRow> tableWithValues = db.Select(preparedStatement);
+            return proccessResultSet(tableWithValues);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error occured during Select_Au_Id!", e);
         }
         return new LinkedList<>();
     }
 
-    public static List<au_inzerat> Select() {
-        Database db = new Database();
-        PreparedStatement command = db.CreateCommand(SQL_SELECT_AU_ID);
-
-        ResultSet resultSet = db.Select(command);
-        List<au_inzerat> au_inzeratList = proccessResultSet(resultSet);
-        db.Close();
-
-        return au_inzeratList;
-    }
-
-    public static int Insert(au_inzerat inzerat) {
+    public static boolean Insert(au_inzerat inzerat) {
         Database db = new Database();
         PreparedStatement command = db.CreateCommand(SQL_INSERT);
-        PrepareCommand(command, inzerat);
-        int ret = db.ExecuteNonQuery(command);
-
-        db.Close();
-
-        return ret;
+        fillUpParams(command, inzerat);
+        return db.ExecuteNonQuery(command);
     }
 
-    public static int Delete(int in_ID) {
+    public static boolean Delete(int in_ID) {
         try {
             Database db = new Database();
             PreparedStatement command = db.CreateCommand(SQL_DELETE_ID);
             command.setInt(1, in_ID);
-            int ret = db.ExecuteNonQuery(command);
-
-            db.Close();
-
-            return ret;
+            return db.ExecuteNonQuery(command);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error occured during Delete!", e);
         }
-        return 0;
+        return false;
     }
 
     public static au_inzerat Select_ID(int in_ID) {
-        au_inzerat inzerat = new au_inzerat();
         try {
             Database db = new Database();
-            PreparedStatement command = db.CreateCommand(SQL_SELECT_ID);
-            command.setInt(1, in_ID);
+            PreparedStatement preparedStatement = db.CreateCommand(SQL_SELECT_ID);
+            preparedStatement.setInt(1, in_ID);
 
-            ResultSet resultSet = db.Select(command);
-            resultSet.next();
-            inzerat.In_id = resultSet.getInt(1);
-            inzerat.Au_id = resultSet.getInt(2);
-            inzerat.U_id = resultSet.getInt(3);
-            inzerat.Popis = resultSet.getString(4);
-            inzerat.Cena = resultSet.getInt(5);
-            inzerat.Misto = resultSet.getString(6);
-            inzerat.Rok_vyroby = resultSet.getInt(7);
-            inzerat.Rozvody = resultSet.getInt(8);
-            inzerat.Stav_kilometru = resultSet.getInt(9);
-            inzerat.Vzorek_pneu = resultSet.getInt(10);
-            inzerat.Bourane = resultSet.getString(11);
-            inzerat.Vybava = resultSet.getString(12);
-            inzerat.Vymena_spojky = resultSet.getInt(13);
-            inzerat.Majitel = resultSet.getInt(14);
-
-            db.Close();
-
-            return inzerat;
+            List<ResultSetRow> tableWithValues = db.Select(preparedStatement);
+            List<au_inzerat> au_inzeratList = proccessResultSet(tableWithValues);
+            return au_inzeratList.get(0);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error occured during Select_ID!", e);
         }
-        return inzerat;
+        return new au_inzerat();
     }
 
-    private static void PrepareCommand(PreparedStatement command, au_inzerat inzerat) {
+    private static void fillUpParams(PreparedStatement command, au_inzerat inzerat) {
         try {
             command.setInt(1, inzerat.Au_id);
             command.setInt(2, inzerat.U_id);
@@ -135,36 +106,33 @@ public class au_inzeratTable {
                 command.setString(11, inzerat.Vybava);
             }
             command.setInt(12, inzerat.Vymena_spojky);
-            command.setInt(12, inzerat.Majitel);
+            command.setInt(13, inzerat.Majitel);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error occured during fillUpParams!", e);
         }
     }
 
-    static private List<au_inzerat> proccessResultSet(ResultSet resultSet) {
-        try {
-            List<au_inzerat> au_inzeratList = new LinkedList<>();
-            while (resultSet.next()) {
-                au_inzerat inzerat = new au_inzerat();
-                inzerat.In_id = resultSet.getInt(1);
-                inzerat.Au_id = resultSet.getInt(2);
-                inzerat.U_id = resultSet.getInt(3);
-                inzerat.Popis = resultSet.getString(4);
-                inzerat.Cena = resultSet.getInt(5);
-                inzerat.Misto = resultSet.getString(6);
-                inzerat.Rok_vyroby = resultSet.getInt(7);
-                inzerat.Rozvody = resultSet.getInt(8);
-                inzerat.Stav_kilometru = resultSet.getInt(9);
-                inzerat.Vzorek_pneu = resultSet.getInt(10);
-                inzerat.Bourane = resultSet.getString(11);
-                inzerat.Vybava = resultSet.getString(12);
-                inzerat.Vymena_spojky = resultSet.getInt(13);
-                inzerat.Majitel = resultSet.getInt(14);
-                au_inzeratList.add(inzerat);
-            }
-            return au_inzeratList;
-        } catch (SQLException e) {
+    static private LinkedList<au_inzerat> proccessResultSet(List<ResultSetRow> tableWithValues) {
+        LinkedList<au_inzerat> au_inzeratList = new LinkedList<>();
+        for (ResultSetRow resultSetRow : tableWithValues) {
+            List<Map.Entry<Object, Class>> row = resultSetRow.row;
+            au_inzerat inzerat = new au_inzerat();
+            inzerat.In_id = (int) ResultSetRow.columnToValue(row.get(0));
+            inzerat.Au_id = (int) ResultSetRow.columnToValue(row.get(1));
+            inzerat.U_id = (int) ResultSetRow.columnToValue(row.get(2));
+            inzerat.Popis = (String) ResultSetRow.columnToValue(row.get(3));
+            inzerat.Cena = (int) ResultSetRow.columnToValue(row.get(4));
+            inzerat.Misto = (String) ResultSetRow.columnToValue(row.get(5));
+            inzerat.Rok_vyroby = (int) ResultSetRow.columnToValue(row.get(6));
+            inzerat.Rozvody = (int) ResultSetRow.columnToValue(row.get(7));
+            inzerat.Stav_kilometru = (int) ResultSetRow.columnToValue(row.get(8));
+            inzerat.Vzorek_pneu = (int) ResultSetRow.columnToValue(row.get(9));
+            inzerat.Bourane = (String) ResultSetRow.columnToValue(row.get(10));
+            inzerat.Vybava = (String) ResultSetRow.columnToValue(row.get(11));
+            inzerat.Vymena_spojky = (int) ResultSetRow.columnToValue(row.get(12));
+            inzerat.Majitel = (int) ResultSetRow.columnToValue(row.get(13));
+            au_inzeratList.add(inzerat);
         }
-        return new LinkedList<>();
+        return au_inzeratList;
     }
 }
