@@ -13,9 +13,10 @@ import java.util.logging.Logger;
 
 public class autoTable {
 
-    public static String SQL_INSERT = "INSERT INTO auto (nazev, zn_id, spotreba, vykon) VALUES (@nazev, @zn_ID, @spotreba, @vykon)";
-    public static String SQL_SELECT = "SELECT au_id, nazev, zn_id, spotreba, vykon FROM auto";
-    public static String SQL_DELETE_ID = "DELETE FROM auto WHERE au_ID=@au_ID";
+    private static String SQL_INSERT = "INSERT INTO auto (nazev, zn_id, spotreba, vykon) VALUES (?, ?, ?, ?)";
+    private static String SQL_SELECT = "SELECT au_id, nazev, zn_id, spotreba, vykon FROM auto";
+    private static String SQL_SELECT_ZN_ID = "SELECT au_id, nazev, zn_id, spotreba, vykon FROM auto WHERE zn_ID = @zn_ID";
+    private static String SQL_DELETE_ID = "DELETE FROM auto WHERE au_ID = ?";
     private static Logger LOGGER = Logger.getLogger(ResultSetRow.class.getName());
 
     public static LinkedList<auto> Select() {
@@ -31,6 +32,18 @@ public class autoTable {
         PreparedStatement command = db.CreateCommand(SQL_INSERT);
         fillUpParams(command, a);
         return db.ExecuteNonQuery(command);
+    }
+
+    public static boolean Select_Zn_Id(int zn_ID) {
+        try {
+            Database db = new Database();
+            PreparedStatement command = db.CreateCommand(SQL_SELECT_ZN_ID);
+            command.setInt(1, zn_ID);
+            return db.ExecuteNonQuery(command);
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Error occured during Select_Zn_Id!", e);
+        }
+        return false;
     }
 
     public static boolean Delete(int au_ID) {
