@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SelectAutoActivity">
+    tools:context=".SelectNdInzeratActivity">
 
     <ListView
-        android:id="@+id/lstviewAuta"
+        android:id="@+id/lstviewNdInzeraty"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </android.support.constraint.ConstraintLayout>

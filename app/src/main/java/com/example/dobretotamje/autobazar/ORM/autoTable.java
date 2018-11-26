@@ -15,7 +15,7 @@ public class autoTable {
 
     private static String SQL_INSERT = "INSERT INTO auto (nazev, zn_id, spotreba, vykon) VALUES (?, ?, ?, ?)";
     private static String SQL_SELECT = "SELECT au_id, nazev, zn_id, spotreba, vykon FROM auto";
-    private static String SQL_SELECT_ZN_ID = "SELECT au_id, nazev, zn_id, spotreba, vykon FROM auto WHERE zn_ID = @zn_ID";
+    private static String SQL_SELECT_ZN_ID = "SELECT au_id, nazev, zn_id, spotreba, vykon FROM auto WHERE zn_ID = ?";
     private static String SQL_DELETE_ID = "DELETE FROM auto WHERE au_ID = ?";
     private static Logger LOGGER = Logger.getLogger(ResultSetRow.class.getName());
 
@@ -34,16 +34,18 @@ public class autoTable {
         return db.ExecuteNonQuery(command);
     }
 
-    public static boolean Select_Zn_Id(int zn_ID) {
+    public static LinkedList<auto> Select_Zn_Id(int zn_ID) {
+
         try {
             Database db = new Database();
-            PreparedStatement command = db.CreateCommand(SQL_SELECT_ZN_ID);
-            command.setInt(1, zn_ID);
-            return db.ExecuteNonQuery(command);
+            PreparedStatement preparedStatement = db.CreateCommand(SQL_SELECT_ZN_ID);
+            preparedStatement.setInt(1, zn_ID);
+            List<ResultSetRow> tableWithValues = db.Select(preparedStatement);
+            return proccessResultSet(tableWithValues);
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error occured during Select_Zn_Id!", e);
         }
-        return false;
+        return new LinkedList<>();
     }
 
     public static boolean Delete(int au_ID) {
@@ -66,8 +68,8 @@ public class autoTable {
             a.Au_id = (int) ResultSetRow.columnToValue(row.get(0));
             a.Nazev = (String) ResultSetRow.columnToValue(row.get(1));
             a.Zn_id = (int) ResultSetRow.columnToValue(row.get(2));
-            a.Spotreba = (int) ResultSetRow.columnToValue(row.get(3));
-            a.Vykon = (int) ResultSetRow.columnToValue(row.get(4));
+            a.Spotreba = (double) ResultSetRow.columnToValue(row.get(3));
+            a.Vykon = (double) ResultSetRow.columnToValue(row.get(4));
             autoList.add(a);
         }
         return autoList;

@@ -28,14 +28,15 @@ public class MainActivity extends Activity {
         ZnackaAdapter mAdapter = new ZnackaAdapter(this.getApplicationContext(), R.layout.listview_znacka, select);
         ListView lv = findViewById(R.id.lstviewZnacky);
         lv.setAdapter(mAdapter);
+        lv.setOnItemClickListener(myListener);
     }
 
     ListView.OnItemClickListener myListener = new ListView.OnItemClickListener(){
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            ZnackaAdapter.ZnackaHolder entry = (ZnackaAdapter.ZnackaHolder) adapterView.getItemAtPosition(i);
+            znacka zn = (znacka)adapterView.getItemAtPosition(i);
             Intent selectAutoActivity = new Intent(getBaseContext(), SelectAutoActivity.class);
-            selectAutoActivity.putExtra("znackaId", entry.txtId.getText());
+            selectAutoActivity.putExtra("znackaId", String.valueOf(zn.Zn_id));
             startActivity(selectAutoActivity);
         }
     };
@@ -64,7 +65,7 @@ public class MainActivity extends Activity {
                 znackaHolder = new ZnackaHolder();
                 znackaHolder.txtNazev = row.findViewById(R.id.txtNazev);
                 znackaHolder.txtZemeVyroby = row.findViewById(R.id.txtZemeVyroby);
-                znackaHolder.textKoncern = row.findViewById(R.id.txtKoncern);
+                znackaHolder.txtKoncern = row.findViewById(R.id.txtKoncern);
                 znackaHolder.txtId = row.findViewById(R.id.txtId);
 
                 row.setTag(znackaHolder);
@@ -75,8 +76,8 @@ public class MainActivity extends Activity {
             znacka zna = data.get(position);
             znackaHolder.txtNazev.setText(zna.Nazev);
             znackaHolder.txtZemeVyroby.setText(zna.Zeme_vyroby);
-            znackaHolder.textKoncern.setText(zna.Koncern);
-            znackaHolder.textKoncern.setText(zna.Zn_id);
+            znackaHolder.txtKoncern.setText(zna.Koncern);
+            znackaHolder.txtId.setText(String.valueOf(zna.Zn_id));
 
             return row;
         }
@@ -84,7 +85,7 @@ public class MainActivity extends Activity {
         private class ZnackaHolder {
             TextView txtNazev;
             TextView txtZemeVyroby;
-            TextView textKoncern;
+            TextView txtKoncern;
             TextView txtId;
         }
     }

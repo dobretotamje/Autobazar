@@ -18,7 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelectAutoActivity"></activity>
+        <activity android:name=".SelectAutoActivity" />
+        <activity android:name=".SelectAuInzeratActivity" />
+        <activity android:name=".SelectNahradniDilActivity" />
+        <activity android:name=".SelectNdInzeratActivity"></activity>
     </application>
 
 </manifest>

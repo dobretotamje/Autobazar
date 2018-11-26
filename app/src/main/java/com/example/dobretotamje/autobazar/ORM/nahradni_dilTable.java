@@ -15,33 +15,19 @@ public class nahradni_dilTable {
     private static String SQL_INSERT = "INSERT INTO nahradni_dil (au_id, nazev, znacka, orig) VALUES (?, ?, ?, ?)";
     private static String SQL_SELECT_ZN_ID = "SELECT nd.nd_id, nd.au_id, nd.nazev, nd.znacka, nd.orig FROM nahradni_dil nd JOIN auto au ON au.au_ID = nd.au_ID WHERE zn_ID = ?";
     private static String SQL_DELETE = "DELETE FROM nahradni_dil WHERE nd_ID = ?";
-    private static String SQL_SELECT_ND_ID = "SELECT nd.au_id, nd.nazev, nd.znacka, nd.orig FROM nahradni_dil nd WHERE nd_ID = ?";
+    private static String SQL_SELECT_AU_ID = "SELECT nd.au_id, nd.nazev, nd.znacka, nd.orig FROM nahradni_dil nd WHERE au_ID = ?";
     private static Logger LOGGER = Logger.getLogger(ResultSetRow.class.getName());
 
-    public static nahradni_dil Select_Nd_Id(int nd_ID) {
+    public static LinkedList<nahradni_dil> Select_Au_Id(int au_ID) {
         try {
             Database db = new Database();
-            PreparedStatement preparedStatement = db.CreateCommand(SQL_SELECT_ND_ID);
-            preparedStatement.setInt(1, nd_ID);
-
-            List<ResultSetRow> tableWithValues = db.Select(preparedStatement);
-            return proccessResultSet(tableWithValues).get(0);
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error occured during Select_Nd_Id!", e);
-        }
-        return new nahradni_dil();
-    }
-
-    public static LinkedList<nahradni_dil> Select_Zn_Id(int zn_ID) {
-        try {
-            Database db = new Database();
-            PreparedStatement preparedStatement = db.CreateCommand(SQL_SELECT_ZN_ID);
-            preparedStatement.setInt(1, zn_ID);
+            PreparedStatement preparedStatement = db.CreateCommand(SQL_SELECT_AU_ID);
+            preparedStatement.setInt(1, au_ID);
 
             List<ResultSetRow> tableWithValues = db.Select(preparedStatement);
             return proccessResultSet(tableWithValues);
         } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Error occured during Select_Zn_Id!", e);
+            LOGGER.log(Level.SEVERE, "Error occured during Select_Au_Id!", e);
         }
         return new LinkedList<>();
     }
