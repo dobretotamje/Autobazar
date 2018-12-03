@@ -4,13 +4,17 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.dobretotamje.autobazar.ORM.au_inzerat;
@@ -23,17 +27,7 @@ public class SelectAuInzeratActivity extends Activity {
 
     int autoId = 0;
 
-    ListView.OnItemClickListener myListener = new ListView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            //au_inzerat au = (au_inzerat) adapterView.getItemAtPosition(i);
-            //Intent selectAutoActivity = new Intent(getBaseContext(), SelectAutoActivity.class);
-            //selectAutoActivity.putExtra("auInzeratId", String.valueOf(au.In_id));
-            //startActivity(selectAutoActivity);
-        }
-    };
-
-    Button.OnClickListener btnListener = new Button.OnClickListener(){
+    Button.OnClickListener btnListener = new Button.OnClickListener() {
         @Override
         public void onClick(View v) {
             Intent selectNahradniDilActivity = new Intent(getBaseContext(), SelectNahradniDilActivity.class);
@@ -42,23 +36,53 @@ public class SelectAuInzeratActivity extends Activity {
         }
     };
 
+    ListView.OnItemClickListener inzeratListener = new ListView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            showPopupDetail(view);
+        }
+    };
+
+    private void showPopupDetail(View view){
+        LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.popup_window, null);
+        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+
+        boolean focusable = true;
+
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        popupView.setOnTouchListener(new View.OnTouchListener(){
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                popupWindow.dismiss();
+                return true;
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_au_inzerat);
-        Intent intent = getIntent();
-        Bundle bundle = intent.getExtras();
+        Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            String auId = (String) bundle.get("autoId");
-            LinkedList<au_inzerat> au_inzerats = au_inzeratTable.Select_Au_Id(Integer.parseInt(auId));
-
-            InzeratAdapter mAdapter = new InzeratAdapter(this.getApplicationContext(), R.layout.listview_au_inzerat, au_inzerats);
             ListView lv = findViewById(R.id.lstviewAuInzeraty);
-            lv.setAdapter(mAdapter);
-            lv.setOnItemClickListener(myListener);
-
+            LinkedList<au_inzerat> au_inzerats;
             Button btn = findViewById(R.id.btn_nahradniDily);
+            if (bundle.get("cenaOd") == null || bundle.get("cenaDo") == null) {
+                btn.setVisibility(View.VISIBLE);
+                autoId = Integer.parseInt((String) bundle.get("autoId"));
+                au_inzerats = au_inzeratTable.Select_Au_Id(autoId);
+            } else {
+                btn.setVisibility(View.GONE);
+                au_inzerats = au_inzeratTable.Select_Cena(Integer.parseInt((String) bundle.get("cenaOd")), Integer.parseInt((String) bundle.get("cenaDo")));
+            }
+            InzeratAdapter mAdapter = new InzeratAdapter(this.getApplicationContext(), R.layout.listview_au_inzerat, au_inzerats);
             btn.setOnClickListener(btnListener);
+            lv.setAdapter(mAdapter);
         }
     }
 
