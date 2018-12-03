@@ -79,11 +79,10 @@ public class nahradni_dilTable {
         for (ResultSetRow resultSetRow : tableWithValues) {
             List<Map.Entry<Object, Class>> row = resultSetRow.row;
             nahradni_dil nd = new nahradni_dil();
-            nd.Nd_id = (int) ResultSetRow.columnToValue(row.get(0));
-            nd.Au_id = (int) ResultSetRow.columnToValue(row.get(1));
-            nd.Nazev = (String) ResultSetRow.columnToValue(row.get(2));
-            nd.Znacka = (String) ResultSetRow.columnToValue(row.get(3));
-            nd.Orig = (String) ResultSetRow.columnToValue(row.get(4));
+            nd.Au_id = (int) ResultSetRow.columnToValue(row.get(0));
+            nd.Nazev = (String) ResultSetRow.columnToValue(row.get(1));
+            nd.Znacka = (String) ResultSetRow.columnToValue(row.get(2));
+            nd.Orig = (String) ResultSetRow.columnToValue(row.get(3));
             nahradni_dils.add(nd);
         }
         return nahradni_dils;

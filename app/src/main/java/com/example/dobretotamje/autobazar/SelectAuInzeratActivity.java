@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -36,23 +37,23 @@ public class SelectAuInzeratActivity extends Activity {
         }
     };
 
-    ListView.OnItemClickListener inzeratListener = new ListView.OnItemClickListener() {
+    ListView.OnItemClickListener detailListener = new ListView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-            showPopupDetail(view);
+            au_inzerat inzerat = (au_inzerat) adapterView.getItemAtPosition(i);
+            showPopupDetail(view, inzerat.Popis);
         }
     };
 
-    private void showPopupDetail(View view){
+    private void showPopupDetail(View view, String detail){
         LayoutInflater inflater = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = inflater.inflate(R.layout.popup_window, null);
-        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
-        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+        View popupView = inflater.inflate(R.layout.popup_inzerat2, null);
+        int width = LinearLayout.LayoutParams.MATCH_PARENT;
+        int height = LinearLayout.LayoutParams.MATCH_PARENT;
 
-        boolean focusable = true;
-
-        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
+        final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        dimBehind(popupWindow);
         popupView.setOnTouchListener(new View.OnTouchListener(){
 
             @Override
@@ -61,6 +62,19 @@ public class SelectAuInzeratActivity extends Activity {
                 return true;
             }
         });
+
+        TextView txtDetail = popupWindow.getContentView().findViewById(R.id.txtDetail);
+        txtDetail.setText(detail);
+    }
+
+    public static void dimBehind(PopupWindow popupWindow) {
+        View container = popupWindow.getContentView().getRootView();
+        Context context = popupWindow.getContentView().getContext();
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+        p.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        p.dimAmount = 0.5f;
+        wm.updateViewLayout(container, p);
     }
 
     @Override
@@ -83,6 +97,7 @@ public class SelectAuInzeratActivity extends Activity {
             InzeratAdapter mAdapter = new InzeratAdapter(this.getApplicationContext(), R.layout.listview_au_inzerat, au_inzerats);
             btn.setOnClickListener(btnListener);
             lv.setAdapter(mAdapter);
+            lv.setOnItemClickListener(detailListener);
         }
     }
 

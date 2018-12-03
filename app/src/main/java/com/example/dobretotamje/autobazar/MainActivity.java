@@ -41,8 +41,8 @@ public class MainActivity extends Activity {
                 Toast.makeText(getApplicationContext(), "Cena od nemůže být větší než cena do!", Toast.LENGTH_SHORT).show();
             } else {
                 Intent selectAuInteratActivity = new Intent(getBaseContext(), SelectAuInzeratActivity.class);
-                selectAuInteratActivity.putExtra("cenaOd", String.valueOf(cenaOd));
-                selectAuInteratActivity.putExtra("cenaDo", String.valueOf(cenaDo));
+                selectAuInteratActivity.putExtra("cenaOd", String.valueOf(cenaOd.getText()));
+                selectAuInteratActivity.putExtra("cenaDo", String.valueOf(cenaDo.getText()));
                 startActivity(selectAuInteratActivity);
             }
         }
