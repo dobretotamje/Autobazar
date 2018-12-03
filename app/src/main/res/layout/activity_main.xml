@@ -18,9 +18,10 @@
             android:layout_width="249dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:editable="false"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Filtrovat:" />
+            android:inputType="text"
+            android:text="Filtrovat podle ceny:" />
 
         <Button
             android:id="@+id/btnPridatInzerat"
@@ -41,62 +42,31 @@
         android:layout_weight="0"
         android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/spinZnacka"
-            android:layout_width="359dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Spinner
-            android:id="@+id/spinModel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <Spinner
-            android:id="@+id/spinRokVyroby"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txOstatniMoznosti"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Ostatní možnosti:" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:orientation="horizontal">
-
-        <TextView
+        <EditText
             android:id="@+id/txtCenaOd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="Cena od"
-            android:text="Cena od:" />
+            android:ems="10"
+            android:inputType="numberSigned" />
 
-        <TextView
+        <EditText
             android:id="@+id/txtCenaDo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:contentDescription="Cena do"
-            android:text="Cena do:" />
+            android:ems="10"
+            android:inputType="numberSigned" />
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:text="Najít"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
