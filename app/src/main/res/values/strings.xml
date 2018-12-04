@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Autobazar</string>
+    <string-array name="spinnerBouraneEntries">
+        <item>A</item>
+        <item>N</item>
+    </string-array>
 </resources>

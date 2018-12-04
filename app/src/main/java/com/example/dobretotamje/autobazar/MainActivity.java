@@ -25,28 +25,36 @@ public class MainActivity extends Activity {
     ListView.OnClickListener searchListener = new ListView.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //validace udaju
-            TextView cenaOd = findViewById(R.id.txtCenaOd);
-            TextView cenaDo = findViewById(R.id.txtCenaDo);
-            //TODO check if cenaOdNum neni nikdy null při špatnych vstupech? je to možne vubec?
-            int cenaOdNum = Integer.parseInt(cenaOd.getText().toString());
-            int cenaDoNum = Integer.parseInt(cenaDo.getText().toString());
-            if (cenaOd.getText() != "") {
-                cenaOdNum = 0;
-            }
-            if (cenaDo.getText() != "") {
-                cenaDoNum = 999999999;
-            }
-            if (cenaOdNum > cenaDoNum) {
-                Toast.makeText(getApplicationContext(), "Cena od nemůže být větší než cena do!", Toast.LENGTH_SHORT).show();
-            } else {
-                Intent selectAuInteratActivity = new Intent(getBaseContext(), SelectAuInzeratActivity.class);
-                selectAuInteratActivity.putExtra("cenaOd", String.valueOf(cenaOd.getText()));
-                selectAuInteratActivity.putExtra("cenaDo", String.valueOf(cenaDo.getText()));
-                startActivity(selectAuInteratActivity);
-            }
+        //validace udaju
+        TextView cenaOd = findViewById(R.id.txtCenaOd);
+        TextView cenaDo = findViewById(R.id.txtCenaDo);
+        int cenaOdNum = Integer.parseInt(cenaOd.getText().toString());
+        int cenaDoNum = Integer.parseInt(cenaDo.getText().toString());
+        if (cenaOd.getText() != "") {
+            cenaOdNum = 0;
+        }
+        if (cenaDo.getText() != "") {
+            cenaDoNum = 999999999;
+        }
+        if (cenaOdNum > cenaDoNum) {
+            Toast.makeText(getApplicationContext(), "Cena od nemůže být větší než cena do!", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent selectAuInteratActivity = new Intent(getBaseContext(), SelectAuInzeratActivity.class);
+            selectAuInteratActivity.putExtra("cenaOd", String.valueOf(cenaOd.getText()));
+            selectAuInteratActivity.putExtra("cenaDo", String.valueOf(cenaDo.getText()));
+            startActivity(selectAuInteratActivity);
+        }
         }
     };
+
+    ListView.OnClickListener pridatInzeratListener = new ListView.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent insertAuInzeratActivity = new Intent(getBaseContext(), InsertAuInzeratActivity.class);
+            startActivity(insertAuInzeratActivity);
+        }
+    };
+
     ListView.OnItemClickListener myListener = new ListView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -69,6 +77,9 @@ public class MainActivity extends Activity {
 
         Button search = findViewById(R.id.btnSearch);
         search.setOnClickListener(searchListener);
+
+        Button btnPridatInzerat = findViewById(R.id.btnPridatInzerat);
+        btnPridatInzerat.setOnClickListener(pridatInzeratListener);
     }
 
     private class ZnackaAdapter extends ArrayAdapter<znacka> {

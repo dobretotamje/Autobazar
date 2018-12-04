@@ -105,7 +105,7 @@ public class au_inzeratTable {
             if (inzerat.Misto == null) {
                 command.setNull(5, Types.NULL);
             } else {
-                command.setString(3, inzerat.Misto);
+                command.setString(5, inzerat.Misto);
             }
             command.setInt(6, inzerat.Rok_vyroby);
             command.setInt(7, inzerat.Rozvody);

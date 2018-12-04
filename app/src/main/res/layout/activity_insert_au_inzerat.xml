@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".InsertAuInzeratActivity">
+
+    <Spinner
+        android:id="@+id/insAuInz_AuNazev"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <EditText
+        android:id="@+id/insAuInz_Popis"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="Popis inzerátu"
+        android:hint="Popis inzerátu"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/insAuInz_Cena"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="Cena"
+        android:hint="Cena"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/insAuInz_Misto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Místo"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/insAuInz_RokVyroby"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Rok Výroby"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/insAuInz_Rozvody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Počet km najetých na rozvodech"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/insAuInz_StavKm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Aktuální stav kilometrů"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/insAuInz_VzorekPneu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:hint="Vzorek pneumatik"
+        android:inputType="number" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Bourané auto?"
+            android:textSize="18sp" />
+
+        <Spinner
+            android:id="@+id/insAuInz_Bourane"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/spinnerBouraneEntries"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="16dp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/insAuInz_Vybava"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Výbava auta"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/insAuInz_VymenaSpojky"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Poček km najetých na spojce"
+        android:inputType="number" />
+
+    <EditText
+        android:id="@+id/insAuInz_Majitel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Kolikátý jste majitel?"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/insAuInz_PridatInzerat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Přidat inzerát" />
+</LinearLayout>
