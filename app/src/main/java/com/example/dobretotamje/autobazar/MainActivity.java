@@ -51,6 +51,14 @@ public class MainActivity extends Activity {
         }
     };
 
+    ListView.OnClickListener pridatZnackuListener = new ListView.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent insertZnackaActivity = new Intent(getBaseContext(), InsertZnackaActivity.class);
+            startActivity(insertZnackaActivity);
+        }
+    };
+
     ListView.OnClickListener pridatInzeratListener = new ListView.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -84,6 +92,9 @@ public class MainActivity extends Activity {
 
         Button btnPridatInzerat = findViewById(R.id.btnPridatInzerat);
         btnPridatInzerat.setOnClickListener(pridatInzeratListener);
+
+        Button btnPridatZnacku = findViewById(R.id.btnPridatZnacku);
+        btnPridatZnacku.setOnClickListener(pridatZnackuListener);
     }
 
     private class ZnackaAdapter extends ArrayAdapter<znacka> {

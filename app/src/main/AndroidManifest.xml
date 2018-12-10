@@ -22,7 +22,8 @@
         <activity android:name=".SelectAuInzeratActivity" />
         <activity android:name=".SelectNahradniDilActivity" />
         <activity android:name=".SelectNdInzeratActivity" />
-        <activity android:name=".InsertAuInzeratActivity"></activity>
+        <activity android:name=".InsertAuInzeratActivity" />
+        <activity android:name=".InsertZnackaActivity"></activity>
     </application>
 
 </manifest>

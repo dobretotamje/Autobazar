@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".InsertZnackaActivity">
+
+    <EditText
+        android:id="@+id/zn_InsertNazev"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="Název značky"
+        android:hint="Název značky"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/zn_InsertZemeVyroby"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Země výroby"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/zn_InsertKoncern"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Koncern"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/zn_PridatZnacku"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Přidat značku" />
+</LinearLayout>

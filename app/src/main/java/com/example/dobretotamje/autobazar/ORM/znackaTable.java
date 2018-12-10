@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class znackaTable {
 
-    private static String SQL_INSERT = "INSERT INTO znacka (nazev, zeme_vyroby, koncern, hodnoceni_prumer) VALUES (@nazev, @zeme_vyroby, @koncern, @hodnoceni_prumer)";
+    private static String SQL_INSERT = "INSERT INTO znacka (nazev, zeme_vyroby, koncern, hodnoceni_prumer) VALUES (?, ?, ?, ?)";
     private static String SQL_SELECT = "SELECT zn_id, nazev, zeme_vyroby, koncern, hodnoceni_prumer FROM znacka";
     private static Logger LOGGER = Logger.getLogger(ResultSetRow.class.getName());
 
@@ -49,7 +49,7 @@ public class znackaTable {
             } else {
                 command.setString(3, znac.Koncern);
             }
-            command.setInt(4, znac.Hodnoceni_prumer);
+            command.setInt(4, 1);
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error occured during fillUpParams!", e);
         }

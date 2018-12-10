@@ -38,4 +38,8 @@ public class DataSupplier {
     public static void insertAutoInzerat(au_inzerat inzerat){
         au_inzeratTable.Insert(inzerat);
     }
+
+    public static void insertZnacka(znacka zn){
+        znackaTable.Insert(zn);
+    }
 }
