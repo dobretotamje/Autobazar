@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class au_inzeratTable {
 
     private static String SQL_SELECT_ID = "SELECT in_id, au_id, u_id, popis, cena, misto, rok_vyroby, rozvody, stav_kilometru, vzorek_pneu, bourane, vybava, vymena_spojky, majitel FROM au_inzerat WHERE in_ID = ?";
-    private static String SQL_SELECT_CENA = "SELECT in_id, au_id, u_id, popis, cena, misto, rok_vyroby, rozvody, stav_kilometru, vzorek_pneu, bourane, vybava, vymena_spojky, majitel FROM au_inzerat WHERE cena >= ? AND cena <= ?";
+    private static String SQL_SELECT_CENA = "SELECT in_id, au_id, u_id, popis, cena, misto, rok_vyroby, rozvody, stav_kilometru, vzorek_pneu, bourane, vybava, vymena_spojky, majitel FROM au_inzerat WHERE ? >= ? AND ? <= ?";
     private static String SQL_INSERT = "INSERT INTO au_inzerat (au_id, u_id, popis, cena, misto, rok_vyroby, rozvody, stav_kilometru, vzorek_pneu, bourane, vybava, vymena_spojky, majitel) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static String SQL_DELETE_ID = "DELETE FROM au_inzerat WHERE in_ID=?";
     private static String SQL_SELECT_AU_ID = "SELECT in_id, au_id, u_id, popis, cena, misto, rok_vyroby, rozvody, stav_kilometru, vzorek_pneu, bourane, vybava, vymena_spojky, majitel FROM au_inzerat WHERE au_ID = ?";
@@ -43,12 +43,15 @@ public class au_inzeratTable {
         return new LinkedList<>();
     }
 
-    public static LinkedList<au_inzerat> Select_Cena(int cenaOd, int cenaDo) {
+    public static LinkedList<au_inzerat> Select_Cena(int cenaOd, int cenaDo, String fieldType) {
         try {
             Database db = new Database();
             PreparedStatement preparedStatement = db.CreateCommand(SQL_SELECT_CENA);
+            preparedStatement.setString(0, fieldType);
+            preparedStatement.setString(2, fieldType);
+
             preparedStatement.setInt(1, cenaOd);
-            preparedStatement.setInt(2, cenaDo);
+            preparedStatement.setInt(3, cenaDo);
 
             List<ResultSetRow> tableWithValues = db.Select(preparedStatement);
             return proccessResultSet(tableWithValues);

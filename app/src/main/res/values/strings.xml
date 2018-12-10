@@ -4,4 +4,10 @@
         <item>A</item>
         <item>N</item>
     </string-array>
+    <string-array name="spinnerFiltrovat">
+        <item>Filtrovat podle ceny:</item>
+        <item>Filtrovat podle počtu najetých km</item>
+        <item>Filtrovat podle počtu majitelů</item>
+        <item>Filtrovat podle roku výroby</item>
+    </string-array>
 </resources>

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,11 +38,14 @@ public class MainActivity extends Activity {
             cenaDoNum = 999999999;
         }
         if (cenaOdNum > cenaDoNum) {
-            Toast.makeText(getApplicationContext(), "Cena od nemůže být větší než cena do!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Spodní hranice nemůže být větší než horní!", Toast.LENGTH_SHORT).show();
         } else {
             Intent selectAuInteratActivity = new Intent(getBaseContext(), SelectAuInzeratActivity.class);
             selectAuInteratActivity.putExtra("cenaOd", String.valueOf(cenaOd.getText()));
             selectAuInteratActivity.putExtra("cenaDo", String.valueOf(cenaDo.getText()));
+
+            Spinner spinFiltrace = findViewById(R.id.spinFiltrace);
+            selectAuInteratActivity.putExtra("typFiltrOperace", spinFiltrace.getSelectedItemPosition());
             startActivity(selectAuInteratActivity);
         }
         }
