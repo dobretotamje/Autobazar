@@ -29,7 +29,18 @@ public class InsertAuInzeratActivity extends Activity {
         public void onClick(View v) {
             TextView cena = findViewById(R.id.insAuInz_Cena);
             TextView popis = findViewById(R.id.insAuInz_Popis);
-            if (cena.getText().length() == 0 || popis.getText().length() == 0) {
+            TextView misto = findViewById(R.id.insAuInz_Misto);
+            TextView rokVyroby = findViewById(R.id.insAuInz_RokVyroby);
+            TextView rozvody = findViewById(R.id.insAuInz_Rozvody);
+            TextView stavKm = findViewById(R.id.insAuInz_StavKm);
+            TextView vzorekPneu = findViewById(R.id.insAuInz_VzorekPneu);
+            Spinner bourane = findViewById(R.id.insAuInz_Bourane);
+            TextView vybava = findViewById(R.id.insAuInz_Vybava);
+            TextView vymenaSpojky = findViewById(R.id.insAuInz_VymenaSpojky);
+            TextView majitel = findViewById(R.id.insAuInz_Majitel);
+
+            if (cena.getText().length() == 0 || popis.getText().length() == 0 || popis.getText().length() == 0 || misto.getText().length() == 0 || rokVyroby.getText().length() == 0 || rozvody.getText().length() == 0 || stavKm.getText().length() == 0
+                    || vzorekPneu.getText().length() == 0 || vybava.getText().length() == 0 || vymenaSpojky.getText().length() == 0 || majitel.getText().length() == 0) {
                 Toast.makeText(getApplicationContext(), "Byly zadány špatné údaje", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -40,21 +51,18 @@ public class InsertAuInzeratActivity extends Activity {
             au_inzerat.U_id = 1;
             au_inzerat.Popis = popis.getText().toString();
             au_inzerat.Cena = Integer.parseInt(cena.getText().toString());
-            au_inzerat.Misto = ((TextView) findViewById(R.id.insAuInz_Misto)).getText().toString();
-            au_inzerat.Rok_vyroby = Integer.parseInt(((TextView) findViewById(R.id.insAuInz_RokVyroby)).getText().toString());
-            au_inzerat.Rozvody = Integer.parseInt(((TextView) findViewById(R.id.insAuInz_Rozvody)).getText().toString());
-            au_inzerat.Stav_kilometru = Integer.parseInt(((TextView) findViewById(R.id.insAuInz_StavKm)).getText().toString());
-            au_inzerat.Vzorek_pneu = Integer.parseInt(((TextView) findViewById(R.id.insAuInz_VzorekPneu)).getText().toString());
-            au_inzerat.Bourane = ((Spinner) findViewById(R.id.insAuInz_Bourane)).getSelectedItem().toString();
-            au_inzerat.Vybava = ((TextView) findViewById(R.id.insAuInz_Vybava)).getText().toString();
-            au_inzerat.Vymena_spojky = Integer.parseInt(((TextView) findViewById(R.id.insAuInz_VymenaSpojky)).getText().toString());
-            au_inzerat.Majitel = Integer.parseInt(((TextView) findViewById(R.id.insAuInz_Majitel)).getText().toString());
+            au_inzerat.Misto = misto.getText().toString();
+            au_inzerat.Rok_vyroby = Integer.parseInt(rokVyroby.getText().toString());
+            au_inzerat.Rozvody = Integer.parseInt(rozvody.getText().toString());
+            au_inzerat.Stav_kilometru = Integer.parseInt(stavKm.getText().toString());
+            au_inzerat.Vzorek_pneu = Integer.parseInt(vzorekPneu.getText().toString());
+            au_inzerat.Bourane = bourane.getSelectedItem().toString();
+            au_inzerat.Vybava = vybava.getText().toString();
+            au_inzerat.Vymena_spojky = Integer.parseInt(vymenaSpojky.getText().toString());
+            au_inzerat.Majitel = Integer.parseInt(majitel.getText().toString());
 
-            boolean insert = au_inzeratTable.Insert(au_inzerat);
-            if (!insert) {
-                Toast.makeText(getApplicationContext(), "Musí být vyplněny všechny údaje!", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            au_inzeratTable.Insert(au_inzerat);
+
             Toast.makeText(getApplicationContext(), "Inzerát byl vložen", Toast.LENGTH_SHORT).show();
             finish();
         }

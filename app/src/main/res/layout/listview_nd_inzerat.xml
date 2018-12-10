@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="107dp"
         android:layout_weight="1"
         android:orientation="horizontal">
 
@@ -21,7 +21,7 @@
             <TextView
                 android:id="@+id/ndInz_txtPopis"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="107dp"
                 android:layout_marginTop="1dp"
                 android:layout_marginBottom="1dp"
                 android:layout_weight="1"
@@ -42,18 +42,18 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/ndInz_txtMisto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textSize="14sp" />
+
+                    <TextView
                         android:id="@+id/ndInz_txtCena"
                         android:layout_width="match_parent"
                         android:layout_height="25dp"
                         android:layout_weight="1"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/ndInz_txtPopis"
-                        android:layout_width="match_parent"
-                        android:layout_height="25dp"
-                        android:layout_weight="1"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -64,32 +64,25 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/ndInz_txtMisto"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textSize="12sp" />
-
-                    <TextView
                         android:id="@+id/ndInz_txtOpotrebeni"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/ndInz_txtNazevDilu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="12sp" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/ndInz_txtNdId"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:visibility="gone" />
 
                     <TextView
@@ -97,7 +90,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="12sp"
+                        android:textSize="14sp"
                         android:visibility="gone" />
                 </LinearLayout>
 

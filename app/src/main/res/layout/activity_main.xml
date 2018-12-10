@@ -17,6 +17,7 @@
             android:id="@+id/spinFiltrace"
             android:layout_width="415dp"
             android:layout_height="wrap_content"
+            android:entries="@array/spinnerFiltrovat"
             android:layout_weight="1" />
 
         <Button

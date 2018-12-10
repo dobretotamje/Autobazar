@@ -85,18 +85,22 @@ public class nd_inzeratTable {
         }
     }
 
+    //SELECT in_id, nd_id, u_id, misto, cena, popis, opotrebeni FROM nd_inzerat WHERE nd_id = ?";
     static private LinkedList<nd_inzerat> proccessResultSet(List<ResultSetRow> tableWithValues) {
         LinkedList<nd_inzerat> nd_inzeratList = new LinkedList<>();
         for (ResultSetRow resultSetRow : tableWithValues) {
             List<Map.Entry<Object, Class>> row = resultSetRow.row;
             nd_inzerat inzerat = new nd_inzerat();
             inzerat.In_id = (int) ResultSetRow.columnToValue(row.get(0));
-            inzerat.nazev_dilu = (String) ResultSetRow.columnToValue(row.get(1));
-            inzerat.Nd_id = (int) ResultSetRow.columnToValue(row.get(2));
-            inzerat.U_id = (int) ResultSetRow.columnToValue(row.get(3));
+            inzerat.Nd_id = (int) ResultSetRow.columnToValue(row.get(1));
+            inzerat.U_id = (int) ResultSetRow.columnToValue(row.get(2));
+            inzerat.Misto = (String) ResultSetRow.columnToValue(row.get(3));
             inzerat.Cena = (int) ResultSetRow.columnToValue(row.get(4));
             inzerat.Popis = (String) ResultSetRow.columnToValue(row.get(5));
             inzerat.Opotrebeni = (String) ResultSetRow.columnToValue(row.get(6));
+
+            //inzerat.nazev_dilu = (String) ResultSetRow.columnToValue(row.get(1));
+
             nd_inzeratList.add(inzerat);
         }
         return nd_inzeratList;

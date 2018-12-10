@@ -32,7 +32,6 @@ public class SelectNdInzeratActivity extends Activity {
             InzeratAdapter mAdapter = new InzeratAdapter(this.getApplicationContext(), R.layout.listview_nd_inzerat, nd_inzerats);
             ListView lv = findViewById(R.id.lstviewNdInzeraty);
             lv.setAdapter(mAdapter);
-            //lv.setOnItemClickListener(myListener);
         }
     }
 
@@ -58,10 +57,11 @@ public class SelectNdInzeratActivity extends Activity {
                 row = inflater.inflate(layoutResourceId, parent, false);
 
                 inzerat = new InzeratHolder();
-                inzerat.txtPopis = row.findViewById(R.id.auInz_txtPopis);
-                inzerat.txtCena = row.findViewById(R.id.auInz_txtCena);
-                inzerat.txtMisto = row.findViewById(R.id.auInz_txtMisto);
-                inzerat.txtUId = row.findViewById(R.id.auInz_txtUId);
+                inzerat.txtPopis = row.findViewById(R.id.ndInz_txtPopis);
+                inzerat.txtCena = row.findViewById(R.id.ndInz_txtCena);
+                inzerat.txtMisto = row.findViewById(R.id.ndInz_txtMisto);
+                inzerat.txtUId = row.findViewById(R.id.ndInz_txtUId);
+                inzerat.txtOpotrebeni = row.findViewById(R.id.ndInz_txtOpotrebeni);
 
                 row.setTag(inzerat);
             } else {

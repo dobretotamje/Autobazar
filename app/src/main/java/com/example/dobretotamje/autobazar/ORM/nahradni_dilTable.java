@@ -15,7 +15,7 @@ public class nahradni_dilTable {
     private static String SQL_INSERT = "INSERT INTO nahradni_dil (au_id, nazev, znacka, orig) VALUES (?, ?, ?, ?)";
     private static String SQL_SELECT_ZN_ID = "SELECT nd.nd_id, nd.au_id, nd.nazev, nd.znacka, nd.orig FROM nahradni_dil nd JOIN auto au ON au.au_ID = nd.au_ID WHERE zn_ID = ?";
     private static String SQL_DELETE = "DELETE FROM nahradni_dil WHERE nd_ID = ?";
-    private static String SQL_SELECT_AU_ID = "SELECT nd.au_id, nd.nazev, nd.znacka, nd.orig FROM nahradni_dil nd WHERE au_ID = ?";
+    private static String SQL_SELECT_AU_ID = "SELECT nd.au_id, nd.nazev, nd.znacka, nd.orig, nd.nd_id FROM nahradni_dil nd WHERE au_ID = ?";
     private static Logger LOGGER = Logger.getLogger(ResultSetRow.class.getName());
 
     public static LinkedList<nahradni_dil> Select_Au_Id(int au_ID) {
@@ -69,6 +69,7 @@ public class nahradni_dilTable {
             } else {
                 command.setString(4, nd.Orig);
             }
+
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Error occured during fillUpParams!", e);
         }
@@ -83,6 +84,7 @@ public class nahradni_dilTable {
             nd.Nazev = (String) ResultSetRow.columnToValue(row.get(1));
             nd.Znacka = (String) ResultSetRow.columnToValue(row.get(2));
             nd.Orig = (String) ResultSetRow.columnToValue(row.get(3));
+            nd.Nd_id = (int) ResultSetRow.columnToValue(row.get(4));
             nahradni_dils.add(nd);
         }
         return nahradni_dils;

@@ -80,10 +80,10 @@ public class SelectNahradniDilActivity extends Activity {
             }
 
             nahradni_dil nd = data.get(position);
-            nahrdniDilHolder.txtZnacka.setText(nd.Znacka);
+            nahrdniDilHolder.txtZnacka.setText("Znacka?: " + nd.Znacka);
             nahrdniDilHolder.txtOrig.setText("Originál?: " + nd.Orig);
             nahrdniDilHolder.txtNazev.setText("Název: " + nd.Nazev);
-            nahrdniDilHolder.txtZnacka.setText(String.valueOf(nd.Nd_id));
+            nahrdniDilHolder.txtNdId.setText(String.valueOf(nd.Nd_id));
 
             return row;
         }
