@@ -38,7 +38,7 @@ public class SelectNahradniDilActivity extends Activity {
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             String auId = (String) bundle.get("autoId");
-            LinkedList<nahradni_dil> nahradni_dils = nahradni_dilTable.Select_Au_Id(Integer.parseInt(auId));
+            LinkedList<nahradni_dil> nahradni_dils = DataSupplier.getAutoFilteredNahradniDily(Integer.parseInt(auId));
 
             NahradniDilAdapter mAdapter = new NahradniDilAdapter(this.getApplicationContext(), R.layout.listview_nahradni_dil, nahradni_dils);
             ListView lv = findViewById(R.id.lstviewNahradniDily);

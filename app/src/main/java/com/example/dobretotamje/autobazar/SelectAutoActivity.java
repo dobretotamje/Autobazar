@@ -41,7 +41,7 @@ public class SelectAutoActivity extends Activity {
         if (bundle != null) {
             String znId = (String) bundle.get("znackaId");
             znackaId = Integer.parseInt(znId);
-            LinkedList<auto> autos = autoTable.Select_Zn_Id(znackaId);
+            LinkedList<auto> autos = DataSupplier.getFilteredAuta(znackaId);
 
             AutoAdapter mAdapter = new AutoAdapter(this.getApplicationContext(), R.layout.listview_auto, autos);
             ListView lv = findViewById(R.id.lstviewAuta);

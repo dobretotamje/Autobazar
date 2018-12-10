@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dobretotamje.autobazar.ORM.au_inzerat;
-import com.example.dobretotamje.autobazar.ORM.au_inzeratTable;
 import com.example.dobretotamje.autobazar.ORM.auto;
 import com.example.dobretotamje.autobazar.ORM.autoTable;
 
@@ -61,7 +60,7 @@ public class InsertAuInzeratActivity extends Activity {
             au_inzerat.Vymena_spojky = Integer.parseInt(vymenaSpojky.getText().toString());
             au_inzerat.Majitel = Integer.parseInt(majitel.getText().toString());
 
-            au_inzeratTable.Insert(au_inzerat);
+            DataSupplier.insertAutoInzerat(au_inzerat);
 
             Toast.makeText(getApplicationContext(), "Inzerát byl vložen", Toast.LENGTH_SHORT).show();
             finish();

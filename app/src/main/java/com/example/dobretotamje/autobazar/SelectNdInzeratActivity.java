@@ -27,7 +27,7 @@ public class SelectNdInzeratActivity extends Activity {
         Bundle bundle = intent.getExtras();
         if (bundle != null) {
             String ndId = (String) bundle.get("nahradniDilId");
-            LinkedList<nd_inzerat> nd_inzerats = nd_inzeratTable.Select_Nd_Id(Integer.parseInt(ndId));
+            LinkedList<nd_inzerat> nd_inzerats = DataSupplier.getDilFilteredInzeraty(Integer.parseInt(ndId));
 
             InzeratAdapter mAdapter = new InzeratAdapter(this.getApplicationContext(), R.layout.listview_nd_inzerat, nd_inzerats);
             ListView lv = findViewById(R.id.lstviewNdInzeraty);

@@ -89,7 +89,7 @@ public class SelectAuInzeratActivity extends Activity {
             if (bundle.get("cenaOd") == null || bundle.get("cenaDo") == null) {
                 btn.setVisibility(View.VISIBLE);
                 autoId = Integer.parseInt((String) bundle.get("autoId"));
-                au_inzerats = au_inzeratTable.Select_Au_Id(autoId);
+                au_inzerats = DataSupplier.getAutoFilteredInzeraty(autoId);
             } else {
                 btn.setVisibility(View.GONE);
 

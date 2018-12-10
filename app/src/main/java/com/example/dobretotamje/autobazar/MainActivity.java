@@ -73,7 +73,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LinkedList<znacka> select = znackaTable.Select();
+        LinkedList<znacka> select = DataSupplier.getAllZnacka();
         ZnackaAdapter mAdapter = new ZnackaAdapter(this.getApplicationContext(), R.layout.listview_znacka, select);
         ListView lv = findViewById(R.id.lstviewZnacky);
         lv.setAdapter(mAdapter);

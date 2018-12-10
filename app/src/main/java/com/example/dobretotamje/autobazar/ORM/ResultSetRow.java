@@ -57,6 +57,9 @@ public class ResultSetRow {
     }
 
     public static Object columnToValue(Map.Entry<Object, Class> data){
+        if(data.getKey() == null && data.getValue() == Integer.class){
+            return 0;
+        }
         return data.getValue().cast(data.getKey());
     }
 
